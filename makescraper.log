@@ -1,0 +1,9 @@
+I: 2024/04/11 21:25:11 scrape.go:36: Visiting https://finance.yahoo.com
+I: 2024/04/11 21:29:48 scrape.go:33: Visiting https://finance.yahoo.com
+W: 2024/04/11 21:34:41 scrape.go:31: Failed to scrape: exec: "google-chrome": executable file not found in $PATH
+E: 2024/04/11 21:34:41 scrape.go:32: exec: "google-chrome": executable file not found in $PATH
+I: 2024/04/11 21:34:41 scrape.go:36: Scraped text: 
+I: 2024/04/11 21:43:01 scrape.go:36: Scraped text: BTC-USD
+I: 2024/04/11 21:53:30 scrape.go:40: Scraped text: BTC-USD, Bitcoin USD, -0.39%
+I: 2024/04/11 22:16:42 scrape.go:36: Scraped text: BTC-USD, Bitcoin USD, -0.32%
+I: 2024/04/11 22:17:55 scrape.go:36: Scraped text: BTC-USD, Bitcoin USD, -0.46%

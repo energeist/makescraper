@@ -1,30 +1,51 @@
 package main
 
 import (
+	// "encoding/csv"
+	"context"
 	"fmt"
 
-	"github.com/gocolly/colly"
+	"github.com/chromedp/chromedp"
+	"github.com/jbrodriguez/mlog"
 )
 
-// main() contains code adapted from example found in Colly's docs:
-// http://go-colly.org/docs/examples/basic/
 func main() {
-	// Instantiate default collector
-	c := colly.NewCollector()
+	mlog.StartEx(mlog.LevelInfo, "makescraper.log", 5*1024*1024, 5)
 
-	// On every a element which has href attribute call callback
-	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-                link := e.Attr("href")
+	ctx, cancel := chromedp.NewContext(context.Background())
+	defer cancel()
 
-		// Print link
-                fmt.Printf("Link found: %q -> %s\n", e.Text, link)
-	})
+	var ticker, name, percentChange string
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(`https://finance.yahoo.com`),
+		// Wait for the element to be visible
+		chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"]`),
+		// Extract the text of the element
+		chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &ticker),
+		chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > p`, &name),
+		chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`, &percentChange),
+	)
+	if err != nil {
+		mlog.Warning("Failed to scrape: %v", err)
+		mlog.Error(err)
+	}
 
-	// Before making a request print "Visiting ..."
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL.String())
-	})
+	dataPoint := createDataPoint(ticker, name, percentChange)
 
-	// Start scraping on https://hackerspaces.org
-	c.Visit("https://hackerspaces.org/")
+	fmt.Printf("Scraped text: %s, %s, %s\n", dataPoint.Ticker, dataPoint.Name, dataPoint.PercentChange)
+	mlog.Info("Scraped text: %s, %s, %s\n", dataPoint.Ticker, dataPoint.Name, dataPoint.PercentChange)
+}
+
+type ScrapedItem struct {
+	Ticker string
+	Name string
+	PercentChange string
+}
+
+func createDataPoint(ticker, name, percentChange string) ScrapedItem {
+	return ScrapedItem{
+		Ticker: ticker,
+		Name: name,
+		PercentChange: percentChange,
+	}
 }
