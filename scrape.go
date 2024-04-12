@@ -29,8 +29,6 @@ func main() {
 
 	timestamp := time.Now()
 
-	timestamp.Format("2006/01/02 15:04:05 EST")
-
 	selector := `section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`	
 	fmt.Printf("Scraping on %s\n", selector)
 	mlog.Info("Starting to scrape on selector: %s\n", selector)
@@ -71,7 +69,7 @@ func main() {
 		}
 
 		createDataPoint(ticker, name, floatChange, floatValue)
-		fmt.Printf("[%s] Element %d: %-8s | %-15s | %-9.2f$ | %-8.4f%%\n", timestamp, i+1, ticker, name, floatValue, floatChange)
+		fmt.Printf("[%s] Element %d: %-8s | %-15s | %-9.2f$ | %-8.4f%%\n", timestamp.Format("2006/01/02 15:04:05 EDT"), i+1, ticker, name, floatValue, floatChange)
 	}
 }
 
