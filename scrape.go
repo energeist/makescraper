@@ -2,8 +2,10 @@ package main
 
 import (
 	// "encoding/csv"
+	// "encoding/json"
 	"context"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
@@ -21,82 +23,88 @@ func main() {
 	ctx, cancel = context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	var results []*cdp.Node
+	var tickers, names, stockValues, percentChanges []*cdp.Node
 
 	targetUrl := "https://finance.yahoo.com"
 
-	results = scrapeTickers(ctx, targetUrl)
+	timestamp := time.Now()
 
-	// err := chromedp.Run(ctx,
-	// 	chromedp.Navigate(targetUrl),
-	// 	// Use chromedp.Nodes to retrieve all nodes that match the selector
-	// 	chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
-	// 	chromedp.Nodes(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &results, chromedp.ByQueryAll),
-	// )
-	// if err != nil {
-	// 	mlog.Warning("Failed to scrape: %v", err)
-	// 	mlog.Error(err)
-	// }
+	timestamp.Format("2006/01/02 15:04:05 EST")
 
-// Print the results
-for i, result := range results {
-	ticker := result.AttributeValue("href")
-	ticker = strings.TrimPrefix(ticker, "/quote/")
-	fmt.Printf("Element %d: %v\n", i+1, ticker)
-}
-	// This was successfully grabbing one result from the many available
+	selector := `section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`	
+	fmt.Printf("Scraping on %s\n", selector)
+	mlog.Info("Starting to scrape on selector: %s\n", selector)
+	tickers = scrapeData(ctx, targetUrl, selector)
+	names = tickers // The []*cdp.Node slice returned from the first scrape contains both the ticker and full name needed
 
-	// var tickers, names, percentChanges string
-	// err := chromedp.Run(ctx,
-	// 	chromedp.Navigate(`https://finance.yahoo.com`),
-	// 	// Wait for the element to be visible
-	// 	chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
-	// 	// Extract the text of the element
-	// 	chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &tickers, chromedp.ByQueryAll),
-	// 	chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > p`, &names, chromedp.ByQueryAll),
-	// 	chromedp.Text(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`, &percentChanges, chromedp.ByQueryAll),
-	// )
-	// if err != nil {
-	// 	mlog.Warning("Failed to scrape: %v", err)
-	// 	mlog.Error(err)
-	// }
+	selector = `section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer`
+	fmt.Printf("Scraping on %s\n", selector)
+	mlog.Info("Starting to scrape on selector: %s\n", selector)
+	stockValues = scrapeData(ctx, targetUrl, selector)
 
-	// fmt.Printf("scraped tickers: %v\n", tickers)
-	// for _, item := range tickers {
-	// 	dataPoint := createDataPoint(string(tickers[item]), string(names[item]), string(percentChanges[item]))
+	selector = `section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer`
+	fmt.Printf("Scraping on %s\n", selector)
+	mlog.Info("Starting to scrape on selector: %s\n", selector)
+	percentChanges = scrapeData(ctx, targetUrl, selector)
 
-	// 	fmt.Printf("Scraped text: %s, %s, %s\n", dataPoint.Ticker, dataPoint.Name, dataPoint.PercentChange)
-	// 	mlog.Info("Scraped text: %s, %s, %s\n", dataPoint.Ticker, dataPoint.Name, dataPoint.PercentChange)
-	// }
+	// Print and log the results
+	for i, _ := range tickers {
+		ticker := tickers[i].AttributeValue("href")
+		ticker = strings.TrimPrefix(ticker, "/quote/")
+		
+		name := names[i].AttributeValue("title")
+
+		percentChange := percentChanges[i].AttributeValue("value")
+		floatChange, err := strconv.ParseFloat(string(percentChange), 64)
+		if err != nil {
+			fmt.Printf("Error while parsing percentChange to float64: %s", err)
+			mlog.Warning("Error while parsing percentChange to float64")
+			mlog.Error(err)
+		}
+
+		stockValue := stockValues[i].AttributeValue("value")
+		floatValue, err := strconv.ParseFloat(string(stockValue), 64)
+		if err != nil {
+			fmt.Printf("Error while parsing stockValue to float64: %s", err)
+			mlog.Warning("Error while parsing stockValue to float64")
+			mlog.Error(err)
+		}
+
+		createDataPoint(ticker, name, floatChange, floatValue)
+		fmt.Printf("[%s] Element %d: %-8s | %-15s | %-9.2f$ | %-8.4f%%\n", timestamp, i+1, ticker, name, floatValue, floatChange)
+	}
 }
 
 type ScrapedItem struct {
 	Ticker string
 	Name string
-	PercentChange string
+	StockValue float64
+	PercentChange float64
 }
 
-func createDataPoint(ticker, name, percentChange string) ScrapedItem {
+func createDataPoint(ticker, name string, stockValue, percentChange float64) ScrapedItem {
 	return ScrapedItem{
 		Ticker: ticker,
 		Name: name,
+		StockValue: stockValue,
 		PercentChange: percentChange,
 	}
 }
 
-func scrapeTickers(ctx context.Context, targetUrl string) []*cdp.Node {
+func scrapeData(ctx context.Context, targetUrl, selector string) []*cdp.Node {
 	var results []*cdp.Node
 
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(targetUrl),
-		// Use chromedp.Nodes to retrieve all nodes that match the selector
-		chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
-		chromedp.Nodes(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &results, chromedp.ByQueryAll),
+		chromedp.WaitVisible(selector),
+		chromedp.Nodes(selector, &results, chromedp.ByQueryAll),
 	)
 	if err != nil {
-		mlog.Warning("Failed to scrape: %v", err)
+		mlog.Warning("Failed to scrape with selector: %s\n", selector)
 		mlog.Error(err)
 	}
+
+	mlog.Info("Finished scraping with selector: %s", selector)
 
 	return results
 }

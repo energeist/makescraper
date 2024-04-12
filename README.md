@@ -49,7 +49,7 @@ _Complete each task in the order they appear. Use [GitHub Task List](https://hel
 
 ##### Stretch Challenges
 
-- [ ] Add more fields to your `struct`. Extract multiple data points from the website. Print them to `stdout` in a readable format.
+- [x] Add more fields to your `struct`. Extract multiple data points from the website. Print them to `stdout` in a readable format.
 
 #### Serializing & Saving
 

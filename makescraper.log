@@ -19,3 +19,45 @@ W: 2024/04/12 11:16:58 scrape.go:32: Failed to scrape: context deadline exceeded
 E: 2024/04/12 11:16:58 scrape.go:33: context deadline exceeded
 W: 2024/04/12 11:18:17 scrape.go:32: Failed to scrape: context deadline exceeded
 E: 2024/04/12 11:18:17 scrape.go:33: context deadline exceeded
+I: 2024/04/12 17:31:32 scrape.go:34: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:31:36 scrape.go:105: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:31:36 scrape.go:40: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:31:39 scrape.go:105: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:31:39 scrape.go:45: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:31:42 scrape.go:105: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:34:16 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:34:19 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:34:19 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:34:23 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:34:23 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:34:26 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:39:48 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:39:57 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:39:57 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:39:59 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:39:59 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:40:02 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:40:46 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:40:49 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:40:49 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:40:52 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:40:52 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:40:55 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:41:11 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:41:14 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:41:14 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:41:18 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:41:18 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:41:21 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:41:39 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:41:43 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:41:43 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:41:47 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:41:47 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:41:50 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:42:06 scrape.go:36: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:42:10 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a
+I: 2024/04/12 17:42:10 scrape.go:42: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:42:13 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:nth-child(2)> fin-streamer
+I: 2024/04/12 17:42:13 scrape.go:47: Starting to scrape on selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
+I: 2024/04/12 17:42:16 scrape.go:107: Finished scraping with selector: section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer
