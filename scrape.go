@@ -23,16 +23,20 @@ func main() {
 
 	var results []*cdp.Node
 
-	err := chromedp.Run(ctx,
-		chromedp.Navigate(`https://finance.yahoo.com`),
-		// Use chromedp.Nodes to retrieve all nodes that match the selector
-		chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
-		chromedp.Nodes(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &results, chromedp.ByQueryAll),
-)
-if err != nil {
-	mlog.Warning("Failed to scrape: %v", err)
-	mlog.Error(err)
-}
+	targetUrl := "https://finance.yahoo.com"
+
+	results = scrapeTickers(ctx, targetUrl)
+
+	// err := chromedp.Run(ctx,
+	// 	chromedp.Navigate(targetUrl),
+	// 	// Use chromedp.Nodes to retrieve all nodes that match the selector
+	// 	chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
+	// 	chromedp.Nodes(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &results, chromedp.ByQueryAll),
+	// )
+	// if err != nil {
+	// 	mlog.Warning("Failed to scrape: %v", err)
+	// 	mlog.Error(err)
+	// }
 
 // Print the results
 for i, result := range results {
@@ -78,4 +82,21 @@ func createDataPoint(ticker, name, percentChange string) ScrapedItem {
 		Name: name,
 		PercentChange: percentChange,
 	}
+}
+
+func scrapeTickers(ctx context.Context, targetUrl string) []*cdp.Node {
+	var results []*cdp.Node
+
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(targetUrl),
+		// Use chromedp.Nodes to retrieve all nodes that match the selector
+		chromedp.WaitVisible(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:last-child > fin-streamer > span`),
+		chromedp.Nodes(`section[data-yaft-module="tdv2-applet-crypto_currencies"] > table > tbody > tr > td:first-child > a`, &results, chromedp.ByQueryAll),
+	)
+	if err != nil {
+		mlog.Warning("Failed to scrape: %v", err)
+		mlog.Error(err)
+	}
+
+	return results
 }
