@@ -101,7 +101,9 @@ func printResults(tickers, names, stockValues, percentChanges []*cdp.Node) {
 	for i, _ := range tickers {
 		ticker, name, floatValue, floatChange := parseNodes(tickers[i], names[i], stockValues[i], percentChanges[i])
 
-		fmt.Printf("[%s] Element %d: %-8s | %-15s | %-9.2f$ | %-8.4f%%\n", timestamp.Format("2006/01/02 15:04:05 EDT"), i+1, ticker, name, floatValue, floatChange)
+		// using magic number (40) for the stock names here for now
+
+		fmt.Printf("[%s] Element %d: %-8s | %-40s | %-9.2f$ | %-8.4f%%\n", timestamp.Format("2006/01/02 15:04:05 EDT"), i+1, ticker, name, floatValue, floatChange)
 	}
 }
 
