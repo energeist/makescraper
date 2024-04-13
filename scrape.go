@@ -1,8 +1,7 @@
 package main
 
 import (
-	// "encoding/csv"
-	// "encoding/json"
+	"encoding/json"
 	"context"
 	"fmt"
 	"strconv"
@@ -25,17 +24,24 @@ func main() {
 	
 	tables := []string{"crypto_currencies", "gainers_title", "losers_title"}
 	
+	var scrapedItemsSlice []ScrapedItem
+
 	for _, table := range tables {
 		tickers, names, stockValues, percentChanges := retrieveTargetAttributes(table, ctx)
 
 		printResults(tickers, names, stockValues, percentChanges)
 
-		createDataPoints(tickers, names, stockValues, percentChanges)
+		parsedItems := createDataPoints(tickers, names, stockValues, percentChanges)
 
-		// serializeDataPoints()
-
-		// printJson()
+		for _, item := range parsedItems {
+			scrapedItemsSlice = append(scrapedItemsSlice, item)
+		}
 	}
+
+	jsonData := serializeDataPoints(scrapedItemsSlice)
+
+	fmt.Println("Serialized JSON data:\n")
+	fmt.Println(string(jsonData))
 }
 
 type ScrapedItem struct {
@@ -105,6 +111,7 @@ func printResults(tickers, names, stockValues, percentChanges []*cdp.Node) {
 
 		fmt.Printf("[%s] Element %d: %-8s | %-40s | %-9.2f$ | %-8.4f%%\n", timestamp.Format("2006/01/02 15:04:05 EDT"), i+1, ticker, name, floatValue, floatChange)
 	}
+	fmt.Println("\n")
 }
 
 func createDataPoints(tickers, names, stockValues, percentChanges []*cdp.Node) []ScrapedItem {
@@ -144,5 +151,11 @@ func parseNodes(tickerNode, nameNode, stockValueNode, percentChangeNode *cdp.Nod
 	}
 
 	return ticker, name, floatValue, floatChange
+}
+
+func serializeDataPoints(scrapedItems []ScrapedItem) []byte {
+	jsonData, _ := json.Marshal(scrapedItems)
+
+	return jsonData
 }
 
