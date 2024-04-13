@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"context"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -42,6 +43,8 @@ func main() {
 
 	fmt.Println("Serialized JSON data:\n")
 	fmt.Println(string(jsonData))
+
+	writeJsonToFile(jsonData)
 }
 
 type ScrapedItem struct {
@@ -93,6 +96,8 @@ func scrapeData(ctx context.Context, targetUrl, selector string) []*cdp.Node {
 	if err != nil {
 		mlog.Warning("Failed to scrape with selector: %s\n", selector)
 		mlog.Error(err)
+
+		panic(err)
 	}
 
 	mlog.Info("Finished scraping with selector: %s", selector)
@@ -140,6 +145,8 @@ func parseNodes(tickerNode, nameNode, stockValueNode, percentChangeNode *cdp.Nod
 		fmt.Printf("Error while parsing stockValue to float64: %s", err)
 		mlog.Warning("Error while parsing stockValue to float64")
 		mlog.Error(err)
+
+		panic(err)
 	}
 	
 	percentChange := percentChangeNode.AttributeValue("value")
@@ -148,6 +155,8 @@ func parseNodes(tickerNode, nameNode, stockValueNode, percentChangeNode *cdp.Nod
 		fmt.Printf("Error while parsing percentChange to float64: %s", err)
 		mlog.Warning("Error while parsing percentChange to float64")
 		mlog.Error(err)
+
+		panic(err)
 	}
 
 	return ticker, name, floatValue, floatChange
@@ -157,5 +166,17 @@ func serializeDataPoints(scrapedItems []ScrapedItem) []byte {
 	jsonData, _ := json.Marshal(scrapedItems)
 
 	return jsonData
+}
+
+func writeJsonToFile(jsonData []byte) {
+	err := os.WriteFile("scrapedData.json", jsonData, 0644)
+	if err != nil {
+		mlog.Warning("Error writing JSON data to file")
+		mlog.Error(err)
+
+		panic(err)
+	}
+
+	mlog.Info("Successfully wrote serialized scraped data to scrapedData.json")
 }
 

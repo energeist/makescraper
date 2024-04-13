@@ -54,8 +54,8 @@ _Complete each task in the order they appear. Use [GitHub Task List](https://hel
 #### Serializing & Saving
 
 - [x] Serialize the `struct` you created to JSON. Print the JSON to `stdout` to validate it.
-- [ ] Write scraped data to a file named `output.json`.
-- [ ] **Add, commit, and push to GitHub**.
+- [x] Write scraped data to a file named `output.json`.
+- [x] **Add, commit, and push to GitHub**.
 
 ## Resources
 
