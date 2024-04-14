@@ -1,1 +1,113 @@
-null
+{
+  "crypto_currencies": {
+    "BNB-USD": {
+      "Symbol": "BNB-USD",
+      "Name": "BNB USD",
+      "StockValue": 548.5296,
+      "PercentChange": 3.5051875,
+      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    },
+    "BTC-USD": {
+      "Symbol": "BTC-USD",
+      "Name": "Bitcoin USD",
+      "StockValue": 63545.91,
+      "PercentChange": 2.2156641,
+      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    },
+    "ETH-USD": {
+      "Symbol": "ETH-USD",
+      "Name": "Ethereum USD",
+      "StockValue": 3062.283,
+      "PercentChange": 5.156682,
+      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    },
+    "SOL-USD": {
+      "Symbol": "SOL-USD",
+      "Name": "Solana USD",
+      "StockValue": 141.28722,
+      "PercentChange": 10.216288,
+      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    },
+    "USDT-USD": {
+      "Symbol": "USDT-USD",
+      "Name": "Tether USDt USD",
+      "StockValue": 1.0003632,
+      "PercentChange": -0.06762664,
+      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    }
+  },
+  "gainers_title": {
+    "CMSQF": {
+      "Symbol": "CMSQF",
+      "Name": "Computershare Limited",
+      "StockValue": 17.95,
+      "PercentChange": 4.7257957,
+      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    },
+    "CPNG": {
+      "Symbol": "CPNG",
+      "Name": "Coupang, Inc.",
+      "StockValue": 21.25,
+      "PercentChange": 11.49,
+      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    },
+    "GL": {
+      "Symbol": "GL",
+      "Name": "Globe Life Inc.",
+      "StockValue": 59.09,
+      "PercentChange": 20.1749,
+      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    },
+    "JANX": {
+      "Symbol": "JANX",
+      "Name": "Janux Therapeutics, Inc.",
+      "StockValue": 52.65,
+      "PercentChange": 5.300003,
+      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    },
+    "ULS": {
+      "Symbol": "ULS",
+      "Name": "UL Solutions Inc.",
+      "StockValue": 34.94,
+      "PercentChange": 24.7857,
+      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    }
+  },
+  "losers_title": {
+    "ANET": {
+      "Symbol": "ANET",
+      "Name": "Arista Networks, Inc.",
+      "StockValue": 271.22,
+      "PercentChange": -8.55081,
+      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    },
+    "DJTWW": {
+      "Symbol": "DJTWW",
+      "Name": "Trump Media \u0026 Technology Group Corp.",
+      "StockValue": 13.69,
+      "PercentChange": -7.935443,
+      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    },
+    "GTBIF": {
+      "Symbol": "GTBIF",
+      "Name": "Green Thumb Industries Inc.",
+      "StockValue": 12.75,
+      "PercentChange": -9.25267,
+      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    },
+    "IBRX": {
+      "Symbol": "IBRX",
+      "Name": "ImmunityBio, Inc.",
+      "StockValue": 5.11,
+      "PercentChange": -15.676564,
+      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    },
+    "XPEV": {
+      "Symbol": "XPEV",
+      "Name": "XPeng Inc.",
+      "StockValue": 7.46,
+      "PercentChange": -9.79444,
+      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    }
+  }
+}
