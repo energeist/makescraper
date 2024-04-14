@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
+	// "encoding/json"
 	"context"
 	"fmt"
-	"os"
+	// "os"
 	"strconv"
 	"strings"
 	"time"
@@ -14,11 +14,14 @@ import (
 	"github.com/jbrodriguez/mlog"
 )
 
+var tables = [3]string{"crypto_currencies", "gainers_title", "losers_title"}
+
 type ScrapedItem struct {
 	Symbol string
 	Name string
 	StockValue float64
 	PercentChange float64
+	LastScraped time.Time
 }
 
 func main() {
@@ -30,12 +33,9 @@ func main() {
 	ctx, cancel = context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 	
-	tables := []string{"crypto_currencies", "gainers_title", "losers_title"}
-	
-	var scrapedItemsSlice []ScrapedItem
+	// var scrapedItemsSlice []ScrapedItem
 
 	dataMap := make(map[string]map[string]ScrapedItem)
-	fmt.Println(dataMap)
 
 	for _, table := range tables {
 
@@ -44,61 +44,68 @@ func main() {
 		// also do it concurrently instead of sequentially?
 
 		// this function should take map in, mutate and return map
-		symbols, names, stockValues, percentChanges := retrieveTargetAttributes(table, ctx)
-		// dataMap = retrieveAndMapTargetAttributes(table, dataMap, ctx)
+		// symbols, names, stockValues, percentChanges := retrieveTargetAttributes(table, ctx)
+		dataMap = retrieveAndMapTargetAttributes(table, dataMap, ctx)
 
 		// this will take a map now
-		printResults(symbols, names, stockValues, percentChanges)
 		
-		parsedItems := createDataPoints(symbols, names, stockValues, percentChanges)
+		// parsedItems := createDataPoints(symbols, names, stockValues, percentChanges)
 		
-		for _, item := range parsedItems {
-			scrapedItemsSlice = append(scrapedItemsSlice, item)
-		}
+		// for _, item := range parsedItems {
+		// 	scrapedItemsSlice = append(scrapedItemsSlice, item)
+		// }
 	}
+		
+	printResults(dataMap)
 
+	// jsonData := serializeDataPoints(dataMap)
 
-	jsonData := serializeDataPoints(scrapedItemsSlice)
+	// fmt.Println("Serialized JSON data:\n")
+	// fmt.Println(string(jsonData))
 
-	fmt.Println("Serialized JSON data:\n")
-	fmt.Println(string(jsonData))
-
-	writeJsonToFile(jsonData)
+	// writeJsonToFile(jsonData)
 }
 
-func generateScrapedItem(symbol, name string, stockValue, percentChange float64) ScrapedItem {
+func generateScrapedItem(symbol, name string, stockValue, percentChange float64, lastScraped time.Time) ScrapedItem {
 	return ScrapedItem{
 		Symbol: symbol,
 		Name: name,
 		StockValue: stockValue,
 		PercentChange: percentChange,
+		LastScraped: lastScraped,
 	}
 }
 
-func retrieveTargetAttributes(table string, ctx context.Context) (symbols, names, stockValues, percentChanges []*cdp.Node) {
-	targetUrl := "https://finance.yahoo.com"
+// func retrieveTargetAttributes(table string, ctx context.Context) (symbols, names, stockValues, percentChanges []*cdp.Node) {
+// 	timestamp := time.Now()
+// 	targetUrl := "https://finance.yahoo.com"
 
-	selector := `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:first-child > a`	
-	fmt.Printf("Scraping on %s\n", selector)
-	mlog.Info("Starting to scrape on selector: %s\n", selector)
-	symbols = scrapeData(ctx, targetUrl, selector)
-	names = symbols // The []*cdp.Node slice returned from the first scrape contains both the symbol and full name needed
+// 	selector := `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:first-child > a`	
+// 	fmt.Printf("Scraping on %s\n", selector)
+// 	mlog.Info("Starting to scrape on selector: %s\n", selector)
+// 	symbols = scrapeData(ctx, targetUrl, selector)
+// 	names = symbols // The []*cdp.Node slice returned from the first scrape contains both the symbol and full name needed
 
-	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:nth-child(2)> fin-streamer`
-	fmt.Printf("Scraping on %s\n", selector)
-	mlog.Info("Starting to scrape on selector: %s\n", selector)
-	stockValues = scrapeData(ctx, targetUrl, selector)
+// 	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:nth-child(2)> fin-streamer`
+// 	fmt.Printf("Scraping on %s\n", selector)
+// 	mlog.Info("Starting to scrape on selector: %s\n", selector)
+// 	stockValues = scrapeData(ctx, targetUrl, selector)
 
-	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:last-child > fin-streamer`
-	fmt.Printf("Scraping on %s\n", selector)
-	mlog.Info("Starting to scrape on selector: %s\n", selector)
-	percentChanges = scrapeData(ctx, targetUrl, selector)
+// 	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:last-child > fin-streamer`
+// 	fmt.Printf("Scraping on %s\n", selector)
+// 	mlog.Info("Starting to scrape on selector: %s\n", selector)
+// 	percentChanges = scrapeData(ctx, targetUrl, selector)
 
-	return symbols, names, stockValues, percentChanges
-}
+// 	return symbols, names, stockValues, percentChanges
+// }
 
 func retrieveAndMapTargetAttributes(table string, dataMap map[string]map[string]ScrapedItem , ctx context.Context) map[string]map[string]ScrapedItem {
 	targetUrl := "https://finance.yahoo.com"
+	timestamp := time.Now()
+
+	if dataMap[table] == nil {
+		dataMap[table] = make(map[string]ScrapedItem)
+	}
 
 	selector := `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:first-child > a`	
 	fmt.Printf("Scraping on %s\n", selector)
@@ -120,7 +127,9 @@ func retrieveAndMapTargetAttributes(table string, dataMap map[string]map[string]
 		symbolString := symbol.AttributeValue("href")
 		symbolString = strings.TrimPrefix(symbolString, "/quote/")
 
-		dataMap[table][symbolString] = generateScrapedItem(parseNodes(symbols[i], names[i], stockValues[i], percentChanges[i]))
+		ticker, name, floatValue, floatChange := parseNodes(symbols[i], names[i], stockValues[i], percentChanges[i])
+
+		dataMap[table][symbolString] = generateScrapedItem(ticker, name, floatValue, floatChange, timestamp)
 	}
 	
 	return dataMap
@@ -144,35 +153,35 @@ func scrapeData(ctx context.Context, targetUrl, selector string) []*cdp.Node {
 	mlog.Info("Finished scraping with selector: %s", selector)
 
 	return results
-
 }
 
-func printResults(symbols, names, stockValues, percentChanges []*cdp.Node) {
-	timestamp := time.Now()
+func printResults(dataMap map[string]map[string]ScrapedItem) {
+	i := 1
+	for _, table := range tables {
+		for _, item := range dataMap[table] {
+			symbol, name, floatValue, floatChange, lastScraped := item.Symbol, item.Name, item.StockValue, item.PercentChange, item.LastScraped
 
-	for i, _ := range symbols {
-		symbol, name, floatValue, floatChange := parseNodes(symbols[i], names[i], stockValues[i], percentChanges[i])
-
-		// using magic number (40) for the stock names here for now
-
-		fmt.Printf("[%s] Element %d: %-8s | %-40s | %-9.2f$ | %-8.4f%%\n", timestamp.Format("2006/01/02 15:04:05 EDT"), i+1, symbol, name, floatValue, floatChange)
+			// using magic number (40) for the stock names here for now
+			fmt.Printf("[%s] Element %-2d: %-8s | %-40s | %-9.2f$ | %-8.4f%%\n", lastScraped.Format("2006/01/02 15:04:05 EDT"), i, symbol, name, floatValue, floatChange)
+			i++
+		}
 	}
 	fmt.Println("\n")
 }
 
-func createDataPoints(symbols, names, stockValues, percentChanges []*cdp.Node) []ScrapedItem {
-	var scrapedItems []ScrapedItem
+// func createDataPoints(symbols, names, stockValues, percentChanges []*cdp.Node) []ScrapedItem {
+// 	var scrapedItems []ScrapedItem
 	
-	for i, _ := range symbols {
-		symbol, name, floatValue, floatChange := parseNodes(symbols[i], names[i], stockValues[i], percentChanges[i])
+// 	for i, _ := range symbols {
+// 		symbol, name, floatValue, floatChange := parseNodes(symbols[i], names[i], stockValues[i], percentChanges[i])
 
-		item := generateScrapedItem(symbol, name, floatValue, floatChange)
+// 		item := generateScrapedItem(symbol, name, floatValue, floatChange)
 
-		scrapedItems = append(scrapedItems, item)
-	}
+// 		scrapedItems = append(scrapedItems, item)
+// 	}
 
-	return scrapedItems
-}
+// 	return scrapedItems
+// }
 
 func parseNodes(symbolNode, nameNode, stockValueNode, percentChangeNode *cdp.Node) (symbol, name string, floatChange, floatValue float64) {	
 	symbol = symbolNode.AttributeValue("href")
@@ -203,21 +212,23 @@ func parseNodes(symbolNode, nameNode, stockValueNode, percentChangeNode *cdp.Nod
 	return symbol, name, floatValue, floatChange
 }
 
-func serializeDataPoints(scrapedItems []ScrapedItem) []byte {
-	jsonData, _ := json.Marshal(scrapedItems)
+// func serializeDataPoints(dataMap map[string]map[string]ScrapedItem) []byte {
+// 	jsonData, _ := json.Marshal(scrapedItems)
 
-	return jsonData
-}
+// 	return jsonData
+// }
 
-func writeJsonToFile(jsonData []byte) {
-	err := os.WriteFile("output.json", jsonData, 0644)
-	if err != nil {
-		mlog.Warning("Error writing JSON data to file")
-		mlog.Error(err)
+// func writeJsonToFile(jsonData []byte) {
+// 	fileName := "output.json"
 
-		panic(err)
-	}
+// 	err := os.WriteFile(fileName, jsonData, 0644)
+// 	if err != nil {
+// 		mlog.Warning("Error writing JSON data to file")
+// 		mlog.Error(err)
 
-	mlog.Info("Successfully wrote serialized scraped data to scrapedData.json")
-}
+// 		panic(err)
+// 	}
+
+// 	mlog.Info("Successfully wrote serialized scraped data to %s", fileName)
+// }
 
