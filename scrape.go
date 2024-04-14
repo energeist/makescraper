@@ -105,7 +105,6 @@ func scrapeData(ctx context.Context, targetUrl, selector string) []*cdp.Node {
 	return results
 }
 
-// Print and log the results
 func printResults(tickers, names, stockValues, percentChanges []*cdp.Node) {
 	timestamp := time.Now()
 
