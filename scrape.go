@@ -168,7 +168,7 @@ func serializeDataPoints(scrapedItems []ScrapedItem) []byte {
 }
 
 func writeJsonToFile(jsonData []byte) {
-	err := os.WriteFile("scrapedData.json", jsonData, 0644)
+	err := os.WriteFile("output.json", jsonData, 0644)
 	if err != nil {
 		mlog.Warning("Error writing JSON data to file")
 		mlog.Error(err)

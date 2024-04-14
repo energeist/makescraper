@@ -17,4 +17,4 @@ vendor/
 makescraper
 
 # Log files
-.log
+*.log
