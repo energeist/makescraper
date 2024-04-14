@@ -14,7 +14,7 @@ import (
 	"github.com/jbrodriguez/mlog"
 )
 
-var tables = [3]string{"crypto_currencies", "gainers_title", "losers_title"}
+var tables = [3]string{"crypto_currencies", "gainers_title", "losers_title"} // defined globally for ease of use
 
 type ScrapedItem struct {
 	Symbol string
@@ -69,18 +69,15 @@ func retrieveAndMapTargetAttributes(table string, dataMap map[string]map[string]
 	}
 
 	selector := `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:first-child > a`	
-	fmt.Printf("Scraping on %s\n", selector)
 	mlog.Info("Starting to scrape on selector: %s\n", selector)
 	symbols := scrapeData(ctx, targetUrl, selector)
 	names := symbols // The []*cdp.Node slice returned from the first scrape contains both the symbol and full name needed
 
 	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:nth-child(2)> fin-streamer`
-	fmt.Printf("Scraping on %s\n", selector)
 	mlog.Info("Starting to scrape on selector: %s\n", selector)
 	stockValues := scrapeData(ctx, targetUrl, selector)
 
 	selector = `section[data-yaft-module="tdv2-applet-` + table +`"] > table > tbody > tr > td:last-child > fin-streamer`
-	fmt.Printf("Scraping on %s\n", selector)
 	mlog.Info("Starting to scrape on selector: %s\n", selector)
 	percentChanges := scrapeData(ctx, targetUrl, selector)
 
