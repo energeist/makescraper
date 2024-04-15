@@ -1,113 +1,113 @@
 {
   "crypto_currencies": {
-    "BNB-USD": {
-      "Symbol": "BNB-USD",
-      "Name": "BNB USD",
-      "StockValue": 548.5296,
-      "PercentChange": 3.5051875,
-      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    "BNB-CAD": {
+      "Symbol": "BNB-CAD",
+      "Name": "BNB CAD",
+      "StockValue": 765.6469,
+      "PercentChange": 0.8757794,
+      "LastScraped": "2024-04-15T15:33:10.440135729-04:00"
     },
-    "BTC-USD": {
-      "Symbol": "BTC-USD",
-      "Name": "Bitcoin USD",
-      "StockValue": 63545.91,
-      "PercentChange": 2.2156641,
-      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    "BTC-CAD": {
+      "Symbol": "BTC-CAD",
+      "Name": "Bitcoin CAD",
+      "StockValue": 87184.34,
+      "PercentChange": -1.4640261,
+      "LastScraped": "2024-04-15T15:33:10.440135729-04:00"
     },
-    "ETH-USD": {
-      "Symbol": "ETH-USD",
-      "Name": "Ethereum USD",
-      "StockValue": 3062.283,
-      "PercentChange": 5.156682,
-      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    "ETH-CAD": {
+      "Symbol": "ETH-CAD",
+      "Name": "Ethereum CAD",
+      "StockValue": 4255.2573,
+      "PercentChange": 0.66718876,
+      "LastScraped": "2024-04-15T15:33:10.440135729-04:00"
     },
-    "SOL-USD": {
-      "Symbol": "SOL-USD",
-      "Name": "Solana USD",
-      "StockValue": 141.28722,
-      "PercentChange": 10.216288,
-      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    "SOL-CAD": {
+      "Symbol": "SOL-CAD",
+      "Name": "Solana CAD",
+      "StockValue": 189.86377,
+      "PercentChange": -2.4264333,
+      "LastScraped": "2024-04-15T15:33:10.440135729-04:00"
     },
-    "USDT-USD": {
-      "Symbol": "USDT-USD",
-      "Name": "Tether USDt USD",
-      "StockValue": 1.0003632,
-      "PercentChange": -0.06762664,
-      "LastScraped": "2024-04-14T17:23:47.922178671-04:00"
+    "USDT-CAD": {
+      "Symbol": "USDT-CAD",
+      "Name": "Tether USDt CAD",
+      "StockValue": 1.3794162,
+      "PercentChange": 0.01142908,
+      "LastScraped": "2024-04-15T15:33:10.440135729-04:00"
     }
   },
   "gainers_title": {
-    "CMSQF": {
-      "Symbol": "CMSQF",
-      "Name": "Computershare Limited",
-      "StockValue": 17.95,
-      "PercentChange": 4.7257957,
-      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    "ALY.V": {
+      "Symbol": "ALY.V",
+      "Name": "AnalytixInsight Inc.",
+      "StockValue": 0.075,
+      "PercentChange": 36.538464,
+      "LastScraped": "2024-04-15T15:33:18.955941827-04:00"
     },
-    "CPNG": {
-      "Symbol": "CPNG",
-      "Name": "Coupang, Inc.",
-      "StockValue": 21.25,
-      "PercentChange": 11.49,
-      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    "CLM.V": {
+      "Symbol": "CLM.V",
+      "Name": "Consolidated Lithium Metals Inc.",
+      "StockValue": 0.02,
+      "PercentChange": 36.36364,
+      "LastScraped": "2024-04-15T15:33:18.955941827-04:00"
     },
-    "GL": {
-      "Symbol": "GL",
-      "Name": "Globe Life Inc.",
-      "StockValue": 59.09,
-      "PercentChange": 20.1749,
-      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    "CYBT.CN": {
+      "Symbol": "CYBT.CN",
+      "Name": "Cybeats Technologies Corp.",
+      "StockValue": 0.335,
+      "PercentChange": 81.081085,
+      "LastScraped": "2024-04-15T15:33:18.955941827-04:00"
     },
-    "JANX": {
-      "Symbol": "JANX",
-      "Name": "Janux Therapeutics, Inc.",
-      "StockValue": 52.65,
-      "PercentChange": 5.300003,
-      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    "DEEP.CN": {
+      "Symbol": "DEEP.CN",
+      "Name": "Deeprock Minerals Inc.",
+      "StockValue": 0.02,
+      "PercentChange": 33.333336,
+      "LastScraped": "2024-04-15T15:33:18.955941827-04:00"
     },
-    "ULS": {
-      "Symbol": "ULS",
-      "Name": "UL Solutions Inc.",
-      "StockValue": 34.94,
-      "PercentChange": 24.7857,
-      "LastScraped": "2024-04-14T17:23:56.288915206-04:00"
+    "HYTN.CN": {
+      "Symbol": "HYTN.CN",
+      "Name": "HYTN Innovations Inc.",
+      "StockValue": 0.355,
+      "PercentChange": 40,
+      "LastScraped": "2024-04-15T15:33:18.955941827-04:00"
     }
   },
   "losers_title": {
-    "ANET": {
-      "Symbol": "ANET",
-      "Name": "Arista Networks, Inc.",
-      "StockValue": 271.22,
-      "PercentChange": -8.55081,
-      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    "CGN.CN": {
+      "Symbol": "CGN.CN",
+      "Name": "Cognetivity Neurosciences Ltd.",
+      "StockValue": 0.015,
+      "PercentChange": -40.000004,
+      "LastScraped": "2024-04-15T15:33:25.966129918-04:00"
     },
-    "DJTWW": {
-      "Symbol": "DJTWW",
-      "Name": "Trump Media \u0026 Technology Group Corp.",
-      "StockValue": 13.69,
-      "PercentChange": -7.935443,
-      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    "HZM.TO": {
+      "Symbol": "HZM.TO",
+      "Name": "Horizonte Minerals Plc",
+      "StockValue": 0.015,
+      "PercentChange": -66.666664,
+      "LastScraped": "2024-04-15T15:33:25.966129918-04:00"
     },
-    "GTBIF": {
-      "Symbol": "GTBIF",
-      "Name": "Green Thumb Industries Inc.",
-      "StockValue": 12.75,
-      "PercentChange": -9.25267,
-      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    "MINA.CN": {
+      "Symbol": "MINA.CN",
+      "Name": "Minas Metals Ltd.",
+      "StockValue": 0.02,
+      "PercentChange": -50,
+      "LastScraped": "2024-04-15T15:33:25.966129918-04:00"
     },
-    "IBRX": {
-      "Symbol": "IBRX",
-      "Name": "ImmunityBio, Inc.",
-      "StockValue": 5.11,
-      "PercentChange": -15.676564,
-      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    "PGP.V": {
+      "Symbol": "PGP.V",
+      "Name": "Power Group Projects Corp.",
+      "StockValue": 0.005,
+      "PercentChange": -50,
+      "LastScraped": "2024-04-15T15:33:25.966129918-04:00"
     },
-    "XPEV": {
-      "Symbol": "XPEV",
-      "Name": "XPeng Inc.",
-      "StockValue": 7.46,
-      "PercentChange": -9.79444,
-      "LastScraped": "2024-04-14T17:24:04.512558307-04:00"
+    "SEV.V": {
+      "Symbol": "SEV.V",
+      "Name": "Spectra7 Microsystems Inc.",
+      "StockValue": 0.105,
+      "PercentChange": -82.608696,
+      "LastScraped": "2024-04-15T15:33:25.966129918-04:00"
     }
   }
 }

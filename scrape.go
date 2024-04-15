@@ -61,7 +61,7 @@ func generateScrapedItem(symbol, name string, stockValue, percentChange float64,
 }
 
 func retrieveAndMapTargetAttributes(table string, dataMap map[string]map[string]ScrapedItem , ctx context.Context) map[string]map[string]ScrapedItem {
-	targetUrl := "https://finance.yahoo.com"
+	targetUrl := "https://ca.finance.yahoo.com"
 	timestamp := time.Now()
 
 	if dataMap[table] == nil {
